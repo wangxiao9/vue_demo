@@ -9,6 +9,6 @@ export default new Router({
   routes: [
     // { path: '/', name: 'ping', component: ping },
     { path: '/', redirect: '/login' },
-    { path: '/login', name: 'Login', component: Login }
+    { path: '/login', component: Login }
   ]
 })

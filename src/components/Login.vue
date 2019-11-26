@@ -4,15 +4,60 @@
     <div class="login_box">
       <!--头像区域-->
       <div class="avatar_box">
-        <img src="../assets/logo.png" />
+        <img src="../assets/logo.png">
       </div>
       <!--登录表单-->
+      <el-form :model="loginForm" :rules="loginFormRule" label-width="0" class="loginForm">
+        <!--用户-->
+        <el-form-item prop="username">
+          <el-input v-model="loginForm.username" prefix-icon="el-icon-search"></el-input>
+        </el-form-item>
+        <!--密码-->
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" prefix-icon="el-icon-search" type="password"></el-input>
+        </el-form-item>
+        <!--button-->
+        <el-form-item class="btns">
+          <el-button type="primary">登录</el-button>
+          <el-button type="info">取消</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      // 这是个登录表单的数据绑定对象
+      loginForm: {
+        username: 'zs',
+        password: '123456'
+      },
+      loginFormRule: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          {
+            min: 3,
+            max: 10,
+            message: '用户名长度在3到10个字符',
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 3,
+            max: 10,
+            message: '密码长度在3到10个字符',
+            trigger: 'blur'
+          }
+        ]
+      }
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -47,5 +92,18 @@ export default {}
       background-color: #eee;
     }
   }
+}
+
+.loginForm {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
