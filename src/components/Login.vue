@@ -7,7 +7,7 @@
         <img src="../assets/logo.png">
       </div>
       <!--登录表单-->
-      <el-form :model="loginForm" :rules="loginFormRule" label-width="0" class="loginForm">
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRule" label-width="0" class="loginForm">
         <!--用户-->
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="el-icon-search"></el-input>
@@ -19,7 +19,7 @@
         <!--button-->
         <el-form-item class="btns">
           <el-button type="primary">登录</el-button>
-          <el-button type="info">取消</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -32,8 +32,8 @@ export default {
     return {
       // 这是个登录表单的数据绑定对象
       loginForm: {
-        username: 'zs',
-        password: '123456'
+        username: '',
+        password: ''
       },
       loginFormRule: {
         username: [
@@ -55,6 +55,11 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    resetLoginForm () {
+      this.$refs.loginFormRef.resetFields()
     }
   }
 }
