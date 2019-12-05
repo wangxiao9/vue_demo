@@ -7,18 +7,18 @@
         <img src="../assets/logo.png">
       </div>
       <!--登录表单-->
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRule" label-width="0" class="loginForm">
+      <el-form ref='loginFormRef' :model="loginForm" :rules="loginFormRule" label-width="0" class="loginForm">
         <!--用户-->
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-search"></el-input>
+          <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
         </el-form-item>
         <!--密码-->
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="el-icon-search" type="password"></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
         </el-form-item>
         <!--button-->
         <el-form-item class="btns">
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -58,8 +58,24 @@ export default {
     }
   },
   methods: {
+    // 重置表单
     resetLoginForm () {
+      console.log(this)
       this.$refs.loginFormRef.resetFields()
+    },
+    // 登录校验
+    login () {
+      this.$refs.loginFormRef.validate(async (valid) => {
+        if (!valid) return
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        if (res.meta.code !== 200) return this.$message.error('登录失败')
+        this.$message.success('登录成功')
+        // 1.将token放入sessionStroage中
+        // console.log(res.data.token)
+        window.sessionStorage.setItem('token', res.data.token)
+        // 2.编程式导航登录成功后页面跳转
+        this.$router.push('/home')
+      })
     }
   }
 }
