@@ -46,7 +46,10 @@
         </el-menu>
       </el-aside>
       <!--右侧内容-->
-      <el-main>Main</el-main>
+      <el-main>
+          <!--路由占位符-->
+          <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -81,6 +84,9 @@ export default {
 
 .el-aside {
   background-color: #333744;
+  .el-menu {
+      border-right: none;
+  }
 }
 
 .el-main {
